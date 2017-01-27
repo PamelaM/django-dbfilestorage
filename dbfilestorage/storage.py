@@ -54,12 +54,6 @@ class DBFileStorage(Storage):
         # USE mimetypes.guess_type as an attempt at getting the content type.
         ct = mimetypes.guess_type(name)[0]
 
-        # After we get the mimetype by name potentially, mangle it.
-
-        file_ext = os.path.splitext(name)[1]
-        if not file_ext:
-            file_ext = ".txt"
-
         # create the file, or just return name if the exact file already exists
         if not DBFile.objects.filter(name=name).exists():
             the_file = DBFile.objects.create(
