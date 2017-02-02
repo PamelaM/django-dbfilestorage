@@ -7,7 +7,7 @@ class DBFile(models.Model):
     # This is kept as `name` and not something like `md5` because the file
     # operations pass around `name` as the identifier, so it's kept the same
     # to make sense.
-    name = models.CharField(max_length=256, primary_key=True)
+    name = models.CharField(max_length=255, primary_key=True)
 
     # file data
     content_type = models.CharField(max_length=100)
