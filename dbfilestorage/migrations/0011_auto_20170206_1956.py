@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='dbfile',
             name='name',
-            field=models.CharField(max_length=200, unique=True),
+            field=models.CharField(max_length=190, unique=True),
         ),
     ]
