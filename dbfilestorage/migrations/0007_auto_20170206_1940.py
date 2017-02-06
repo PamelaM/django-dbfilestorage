@@ -14,18 +14,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='dbfile',
-            name='id',
-            field=models.AutoField(auto_created=True, default=1, primary_key=True, serialize=False, verbose_name='ID'),
-            preserve_default=False,
-        ),
-        migrations.AddField(
-            model_name='dbfile',
             name='primary_key',
             field=models.IntegerField(null=True),
-        ),
-        migrations.AlterField(
-            model_name='dbfile',
-            name='name',
-            field=models.CharField(max_length=100),
-        ),
+        )
     ]
