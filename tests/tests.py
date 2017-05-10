@@ -77,6 +77,33 @@ class DBFileTest(TestCase):
         size = default_storage.size(self.filepath)
         self.assertGreater(size, 0)
 
+    def test_raw_save(self):
+        CONTENT_DATA_1 = u"Here's some stuff! ΑΔΔGΕΝΕ - ONE"
+        CONTENT_DATA_2 = u"Here's some stuff! ΑΔΔGΕΝΕ - TWO"
+        FILE_NAME = "saveable.txt"
+        self.assertFalse(DBFile.objects.filter(name=FILE_NAME).exists())
+
+        # -- Save to a _new_ file
+        content_file = ContentFile(CONTENT_DATA_1.encode("utf-8"))
+        default_storage.save(FILE_NAME, content_file)
+        self.assertTrue(DBFile.objects.filter(name=FILE_NAME).exists())
+
+        with default_storage.open(FILE_NAME, "rb") as f:
+            read_back = f.read().decode("utf-8")
+        self.assertEqual(read_back, CONTENT_DATA_1)
+
+        # -- Save to an _existing_ file
+        content_file = ContentFile(CONTENT_DATA_2.encode("utf-8"))
+        default_storage.save(FILE_NAME, content_file)
+        self.assertTrue(DBFile.objects.filter(name=FILE_NAME).exists())
+        with default_storage.open(FILE_NAME, "rb") as f:
+            read_back = f.read().decode("utf-8")
+        self.assertEqual(read_back, CONTENT_DATA_2)
+
+        # -- Clean up after ourselves
+        default_storage.delete(FILE_NAME)
+        self.assertFalse(DBFile.objects.filter(name=FILE_NAME).exists())
+
     def test_url(self):
         """ Test that the url returned is the filename """
         self.assertIn(self.filename, default_storage.url(self.filename))
