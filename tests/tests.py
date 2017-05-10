@@ -33,7 +33,7 @@ class DBFileTest(TestCase):
 
     def test_content_file(self):
         """ Test that this code works with ContentFile as well """
-        content_file = ContentFile(u"ΑΔΔGΕΝΕ")
+        content_file = ContentFile(u"ƊBStørage")
         default_storage.save("unicode", content_file)
         unicode_file = DBFile.objects.get(name="unicode")
         self.assertEqual(unicode(unicode_file),
@@ -78,8 +78,8 @@ class DBFileTest(TestCase):
         self.assertGreater(size, 0)
 
     def test_raw_save(self):
-        CONTENT_DATA_1 = u"Here's some stuff! ΑΔΔGΕΝΕ - ONE"
-        CONTENT_DATA_2 = u"Here's some stuff! ΑΔΔGΕΝΕ - TWO"
+        CONTENT_DATA_1 = u"Here's some stuff! ƊBStørage - ONE"
+        CONTENT_DATA_2 = u"Here's some stuff! ƊBStørage - TWO"
         FILE_NAME = "saveable.txt"
         self.assertFalse(DBFile.objects.filter(name=FILE_NAME).exists())
 
